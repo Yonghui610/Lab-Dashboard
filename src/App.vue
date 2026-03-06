@@ -9,7 +9,7 @@ import ExperimentList from './components/ExperimentList.vue';
 
 <template>
   <div class="min-h-screen bg-[#f3f4f6] pb-12 font-sans text-slate-900 flex justify-center">
-    <div class="w-full max-w-[1360px] px-4 sm:px-6 lg:px-8 pt-6">
+    <div class="w-full max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-6">
       <Header class="mb-6" />
       
       <!-- Top Section: Row 1 -->

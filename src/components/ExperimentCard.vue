@@ -153,7 +153,8 @@ defineProps<{
 
 .card__body--regular {
   padding-top: 20px;
-  height: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
   justify-content: space-between;
 }
 
@@ -294,21 +295,31 @@ defineProps<{
   .card__body--featured {
     width: 50%;
     order: 1;
-    padding-left: 16px;
+    padding-left: 8px;
   }
 
   .card__title--featured {
     font-size: 36px;
+    max-width: 6em;
   }
 }
 
 @media (min-width: 1024px) {
+  .card--featured {
+    height: 352px;
+  }
+
+  .card__media--featured {
+    height: 100%;
+  }
+
   .card--regular {
     height: 352px;
   }
 
   .card__media--regular {
-    height: 50%;
+    flex: 0 0 50%;
+    height: auto;
   }
 }
 </style>

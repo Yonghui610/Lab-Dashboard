@@ -44,7 +44,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 .pagination__inner {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
@@ -94,16 +94,16 @@ import { ChevronLeft, ChevronRight } from 'lucide-vue-next';
 }
 
 .pagination__btn--prev {
-  margin-right: 4px;
+  margin-right: 2px;
 }
 
 .pagination__btn--next {
-  margin-left: 4px;
+  margin-left: 2px;
 }
 
 .pagination__ellipsis {
   color: rgb(203, 213, 225);
-  padding: 0 2px;
+  padding: 0 1px;
   font-weight: 500;
 }
 </style>

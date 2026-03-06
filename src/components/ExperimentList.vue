@@ -20,15 +20,6 @@ const experiments = [
     participants: 2341
   },
   {
-    id: 101, // 新增的小卡片
-    title: '手势识别深度学习',
-    description: '使用卷积神经网络(CNN)快速上手手势分类任务，了解数据预处理、训练与推理的完整流程。',
-    tag: '理解型',
-    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    duration: '2课时',
-    participants: 856
-  },
-  {
     id: 2,
     title: '量子纠缠可视化',
     description: '利用量子电路模拟器，观察并验证量子比特的纠缠特性。通过贝尔不等式实验，直观...',
@@ -47,8 +38,26 @@ const experiments = [
     participants: 982
   },
   {
+    id: 101,
+    title: '手势识别深度学习',
+    description: '使用卷积神经网络(CNN)快速上手手势分类任务，了解数据预处理、训练与推理的完整流程。',
+    tag: '理解型',
+    image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    duration: '2课时',
+    participants: 856
+  },
+  {
+    id: 6,
+    title: '分子链模拟器',
+    description: '构建并操纵复杂有机分子的化学键交互。通过直观的3D交互界面，探索微观世界的动...',
+    tag: '理解型',
+    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    duration: '2课时',
+    participants: 1120
+  },
+  {
     id: 4,
-    title: 'DNA 序列比对',
+    title: 'DNA序列对比',
     description: '实现 Needleman-Wunsch 算法，对基因序列进行全局比对分析。生物信息学的基础...',
     tag: '建构型',
     image: 'https://images.unsplash.com/photo-1530026405186-ed1f139313f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
@@ -63,15 +72,6 @@ const experiments = [
     image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     duration: '3课时',
     participants: 890
-  },
-  {
-    id: 6,
-    title: '分子链模拟器',
-    description: '构建并操纵复杂有机分子的化学键交互。通过直观的3D交互界面，探索微观世界的动...',
-    tag: '理解型',
-    image: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    duration: '2课时',
-    participants: 1120
   }
 ];
 
@@ -130,17 +130,17 @@ const filteredExperiments = computed(() => {
     </div>
 
     <!-- Grid -->
-    <div class="flex flex-wrap gap-6">
+    <div class="exp-grid">
       <template v-for="experiment in filteredExperiments" :key="experiment.id">
-        <ExperimentCard 
-          v-bind="experiment"
-          :featured="experiment.featured && activeTab === '全部' && !searchQuery"
-          :class="[
-            (experiment.featured && activeTab === '全部' && !searchQuery)
-              ? 'w-full lg:w-[calc(50%-12px)]' 
-              : 'w-full sm:w-[calc(50%-12px)] lg:w-[calc(25%-18px)]'
-          ]"
-        />
+        <div :class="[
+          'exp-grid__item',
+          (experiment.featured && activeTab === '全部' && !searchQuery) && 'exp-grid__item--featured'
+        ]">
+          <ExperimentCard 
+            v-bind="experiment"
+            :featured="experiment.featured && activeTab === '全部' && !searchQuery"
+          />
+        </div>
       </template>
     </div>
 
@@ -202,16 +202,18 @@ const filteredExperiments = computed(() => {
 .exp-tabs {
   display: none;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   padding: 4px;
   border-radius: 999px;
   border: 1px solid rgba(226, 232, 240, 0.6);
   background: white;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+  width: 220px;
 }
 
 .exp-tabs__btn {
-  padding: 6px 20px;
+  flex: 1 1 0;
+  padding: 6px 0;
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
@@ -239,8 +241,18 @@ const filteredExperiments = computed(() => {
   position: relative;
 }
 
+.exp-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.exp-grid__item {
+  min-width: 0;
+}
+
 .exp-search__input {
-  width: 256px;
+  width: 220px;
   padding: 8px 16px 8px 40px;
   border-radius: 999px;
   border: 1px solid rgb(226, 232, 240);
@@ -294,6 +306,10 @@ const filteredExperiments = computed(() => {
   .exp-tabs {
     display: flex;
   }
+
+  .exp-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 768px) {
@@ -314,8 +330,20 @@ const filteredExperiments = computed(() => {
 }
 
 @media (min-width: 1024px) {
+  .exp-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .exp-grid__item--featured {
+    grid-column: span 2;
+  }
+
+  .exp-tabs {
+    width: 260px;
+  }
+
   .exp-search__input {
-    width: 320px;
+    width: 260px;
   }
 }
 </style>
