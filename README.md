@@ -17,7 +17,7 @@
 如果您已经克隆了代码，请跳过此步。
 
 ```bash
-git clone [您的仓库地址]
+git clone [仓库地址]
 cd Lab-Dashboard
 ```
 
